@@ -1,7 +1,3 @@
-/*http://fmse.di.unimi.it/asmeta/download/AsmetaL_EBNF.html#prod58 -- AsmetaL EBNF document
-http://bottlecaps.de/rr/ui -- can be used to check the syntax of EBNF and visualize the grammar as railroad diagrams
-*/
-
 Asm ::= ( 'asm' | 'asmmodule' ) Id Header Body
 Header ::= UseDirective* ImportDirective* ExportDirective*
 UseDirective ::= 'use' Id 
