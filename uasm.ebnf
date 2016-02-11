@@ -39,8 +39,8 @@ SkipRule ::= 'skip'
 UpdateRule ::= LocationTerm ':=' Term
 ConditionalRule ::= 'if' Term 'then' Rule ( 'else' Rule )? 'endif'?
 CaseRule ::= 'case' Term 'of' ( Term ':' Rule )+ ( 'otherwise' Rule )? 'endcase'
-ChooseRule ::= 'choose' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' Term)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endchoose'?
-ForAllRule ::= 'forall' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' Term)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endforall'?
+ChooseRule ::= 'choose' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endchoose'?
+ForAllRule ::= 'forall' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endforall'?
 LetRule ::= 'let' VariableTerm '=' Term (',' VariableTerm '=' Term)* 'in' Rule
 
 ExtendRule ::= 'extend' ExtendableDomain 'with' VariableTerm (',' VariableTerm)* ('as' VariableTerm)? 'do' Rule 
