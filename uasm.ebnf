@@ -99,7 +99,7 @@ StringLiteral ::= '"' [^"]* '"'
 CharLiteral ::= "'" [^'] "'"
 NumberLiteral ::= [0-9]+('.'[0-9]+)?( ('E'|'e') ( '+' | '-' ) [0-9]+ )?
 Domain ::= StructuredDomain | BasicDomain | ExtendableDomain
-StructuredDomain ::= 'SET' ('('Domain')')? | 'LIST' ('('Domain')')? | 'MAP' ('('Domain',' Domain')')?
+StructuredDomain ::= 'SET' ('('Domain')')? | 'BAG' ('('Domain')')? | 'LIST' ('('Domain')')? | 'MAP' ('('Domain',' Domain')')?
 
 ExtendableDomain ::= 'ANY' | 'AGENT' | IdDomain
 BasicDomain ::= 'NUMBER'  | 'INTEGER' | 'STRING' | 'CHAR' | 'BOOLEAN' | 'RULE'
