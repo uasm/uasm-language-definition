@@ -41,16 +41,16 @@ ConditionalRule ::= 'if' Term 'then' Rule ( 'else' Rule )? 'endif'?
 CaseRule ::= 'case' Term 'of' ( Term ':' Rule )+ ( 'otherwise' Rule )? 'endcase'
 ChooseRule ::= 'choose' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endchoose'?
 ForAllRule ::= 'forall' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endforall'?
-LetRule ::= 'let' VariableTerm '=' Term (',' VariableTerm '=' Term)* 'in' Rule
+LetRule ::= 'let' VariableTerm '=' Term (',' VariableTerm '=' Term)* 'in' Rule 'endlet'?
 
-ExtendRule ::= 'extend' ExtendableDomain 'with' VariableTerm (',' VariableTerm)* ('as' VariableTerm)? 'do' Rule 
-ImportRule ::= 'import' VariableTerm 'do' Rule 
+ExtendRule ::= 'extend' ExtendableDomain 'with' VariableTerm (',' VariableTerm)* ('as' VariableTerm)? 'do' Rule 'endextend'?
+ImportRule ::= 'import' VariableTerm 'do' Rule 'endimport'?
 
-IterateRule ::= 'iterate' Rule
-WhileRule ::= 'while' Term 'do' Rule
-TurboReturnRule ::= LocationTerm '<-' Rule  
-LocalRule ::= 'local' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?  (',' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?)* 'in' Rule
-PrintRule ::= 'print' Term 
+IterateRule ::= 'iterate' Rule 'enditerate'?
+WhileRule ::= 'while' Term 'do' Rule 'endwhile'?
+TurboReturnRule ::= LocationTerm '<-' CallRule
+LocalRule ::= 'local' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?  (',' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?)* 'in' Rule 'endlocal'?
+PrintRule ::= 'print' Term
 
 Term ::= BasicExpression | BasicExpression BinaryOperator BasicExpression | UnaryOperator BasicExpression
 BasicExpression ::= BasicTerm | '(' Term ')'
@@ -76,7 +76,7 @@ PickTerm ::= 'pick' VariableTerm 'in' EnumerableTerm ('with' Term)?
 ConditionalTerm ::= Term '?' Term ':' Term | 'if' Term 'then' Term 'else' Term
 CaseTerm ::= 'case' Term 'of' ( Term ':' Term )+ ( 'otherwise' Term )? 'endcase'
 RuleAsTerm ::= '@' IdRule
-ReturnTerm ::= 'return' VariableTerm in Rule
+ReturnTerm ::= 'return' VariableTerm 'in' Rule
 
 ComprehensionTerm ::= SetComprehensionTerm | ListComprehensionTerm | MapComprehensionTerm | BagComprehensionTerm | NumberRangeTerm
 SetComprehensionTerm ::= '{' Term '|' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? '}' 
@@ -94,13 +94,15 @@ MapTerm ::=  '{' (Term '->' Term) (',' Term '->' Term)* '}' | '{' '->' '}'
 IdDomain ::= Id
 IdFunction ::= Id
 IdRule ::= Id
-Id ::= [_a-zA-Z]?[_a-zA-Z0-9]*
-StringLiteral ::= '"' [^"]* '"'
-CharLiteral ::= "'" [^'] "'"
-NumberLiteral ::= [0-9]+('.'[0-9]+)?( ('E'|'e') ( '+' | '-' ) [0-9]+ )?
+
 Domain ::= StructuredDomain | BasicDomain | ExtendableDomain
 StructuredDomain ::= 'SET' ('('Domain')')? | 'BAG' ('('Domain')')? | 'LIST' ('('Domain')')? | 'MAP' ('('Domain',' Domain')')?
 
 ExtendableDomain ::= 'ANY' | 'AGENT' | IdDomain
 BasicDomain ::= 'NUMBER'  | 'INTEGER' | 'STRING' | 'CHAR' | 'BOOLEAN' | 'RULE'
 
+/* @terminals */
+Id ::= [_a-zA-Z]?[_a-zA-Z0-9]*
+StringLiteral ::= '"' [^"]* '"'
+CharLiteral ::= "'" [^'] "'"
+NumberLiteral ::= [0-9]+('.'[0-9]+)?( ('E'|'e') ( '+' | '-' ) [0-9]+ )?
