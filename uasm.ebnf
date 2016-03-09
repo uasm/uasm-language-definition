@@ -48,7 +48,7 @@ ImportRule ::= 'import' VariableTerm 'do' Rule 'endimport'?
 
 IterateRule ::= 'iterate' Rule 'enditerate'?
 WhileRule ::= 'while' Term 'do' Rule 'endwhile'?
-TurboReturnRule ::= LocationTerm '<-' Rule
+TurboReturnRule ::= LocationTerm '<-' CallRule
 LocalRule ::= 'local' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?  (',' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?)* 'in' Rule 'endlocal'?
 PrintRule ::= 'print' Term
 
