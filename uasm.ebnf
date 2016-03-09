@@ -76,7 +76,7 @@ PickTerm ::= 'pick' VariableTerm 'in' EnumerableTerm ('with' Term)?
 ConditionalTerm ::= Term '?' Term ':' Term | 'if' Term 'then' Term 'else' Term
 CaseTerm ::= 'case' Term 'of' ( Term ':' Term )+ ( 'otherwise' Term )? 'endcase'
 RuleAsTerm ::= '@' IdRule
-ReturnTerm ::= 'return' VariableTerm in Rule
+ReturnTerm ::= 'return' VariableTerm 'in' Rule
 
 ComprehensionTerm ::= SetComprehensionTerm | ListComprehensionTerm | MapComprehensionTerm | BagComprehensionTerm | NumberRangeTerm
 SetComprehensionTerm ::= '{' Term '|' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? '}' 
