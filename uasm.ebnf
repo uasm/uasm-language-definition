@@ -41,16 +41,16 @@ ConditionalRule ::= 'if' Term 'then' Rule ( 'else' Rule )? 'endif'?
 CaseRule ::= 'case' Term 'of' ( Term ':' Rule )+ ( 'otherwise' Rule )? 'endcase'
 ChooseRule ::= 'choose' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endchoose'?
 ForAllRule ::= 'forall' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endforall'?
-LetRule ::= 'let' VariableTerm '=' Term (',' VariableTerm '=' Term)* 'in' Rule
+LetRule ::= 'let' VariableTerm '=' Term (',' VariableTerm '=' Term)* 'in' Rule 'endlet'?
 
-ExtendRule ::= 'extend' ExtendableDomain 'with' VariableTerm (',' VariableTerm)* ('as' VariableTerm)? 'do' Rule 
-ImportRule ::= 'import' VariableTerm 'do' Rule 
+ExtendRule ::= 'extend' ExtendableDomain 'with' VariableTerm (',' VariableTerm)* ('as' VariableTerm)? 'do' Rule 'endextend'?
+ImportRule ::= 'import' VariableTerm 'do' Rule 'endimport'?
 
-IterateRule ::= 'iterate' Rule
-WhileRule ::= 'while' Term 'do' Rule
-TurboReturnRule ::= LocationTerm '<-' Rule  
-LocalRule ::= 'local' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?  (',' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?)* 'in' Rule
-PrintRule ::= 'print' Term 
+IterateRule ::= 'iterate' Rule 'enditerate'?
+WhileRule ::= 'while' Term 'do' Rule 'endwhile'?
+TurboReturnRule ::= LocationTerm '<-' Rule
+LocalRule ::= 'local' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?  (',' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?)* 'in' Rule 'endlocal'?
+PrintRule ::= 'print' Term
 
 Term ::= BasicExpression | BasicExpression BinaryOperator BasicExpression | UnaryOperator BasicExpression
 BasicExpression ::= BasicTerm | '(' Term ')'
