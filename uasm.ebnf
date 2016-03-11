@@ -14,14 +14,14 @@ InitialDomainDefinition ::= 'initially' '{' Literal (',' Literal )* '}'
 EnumerateDefinition ::= 'enum' Id '=' '{' EnumTerm (',' EnumTerm )* '}'
 
 DomainParameterDefinition ::= Domain | ParameterDefinition
-ParameterDefinition ::= '(' (Id 'in' Domain | Id | Domain) (',' (Id 'in' Domain | Id | Domain))* ')'
+ParameterDefinition ::= '(' (Id ('in' | '∈') Domain | Id | Domain) (',' (Id ('in' | '∈') Domain | Id | Domain))* ')'
 
-ControlledFunction ::= ('controlled'|'function'|'controlled' 'function') IdFunction ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)? 
-StaticFunction     ::= 'static' 'function'? IdFunction ParameterDefinition? ('->' Domain)? ('always' InitialFunctionDefinition)
-DerivedFunction    ::= 'derived' 'function'? IdFunction ParameterDefinition? ('->' Domain)? ('=' InitialFunctionDefinition)
-MonitoredFunction  ::= 'monitored' 'function'? IdFunction ParameterDefinition? ('->' Domain)?
-SharedFunction     ::= 'shared' 'function'? IdFunction ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?
-OutFunction        ::= 'out' 'function'? IdFunction ParameterDefinition? ('->' Domain) ('initially' InitialFunctionDefinition)?
+ControlledFunction ::= ('controlled'|'function'|'controlled' 'function') IdFunction ParameterDefinition? (('->' | '→') Domain)? ('initially' InitialFunctionDefinition)? 
+StaticFunction     ::= 'static' 'function'? IdFunction ParameterDefinition? (('->' | '→') Domain)? ('always' InitialFunctionDefinition)
+DerivedFunction    ::= 'derived' 'function'? IdFunction ParameterDefinition? (('->' | '→') Domain)? ('=' InitialFunctionDefinition)
+MonitoredFunction  ::= 'monitored' 'function'? IdFunction ParameterDefinition? (('->' | '→') Domain)?
+SharedFunction     ::= 'shared' 'function'? IdFunction ParameterDefinition? (('->' | '→') Domain)? ('initially' InitialFunctionDefinition)?
+OutFunction        ::= 'out' 'function'? IdFunction ParameterDefinition? (('->' | '→') Domain) ('initially' InitialFunctionDefinition)?
 
 InitialFunctionDefinition ::= 'from'? Term 
 
@@ -39,8 +39,8 @@ SkipRule ::= 'skip'
 UpdateRule ::= LocationTerm ':=' Term
 ConditionalRule ::= 'if' Term 'then' Rule ( 'else' Rule )? 'endif'?
 CaseRule ::= 'case' Term 'of' ( Term ':' Rule )+ ( 'otherwise' Rule )? 'endcase'
-ChooseRule ::= 'choose' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endchoose'?
-ForAllRule ::= 'forall' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? 'do' Rule ('ifnone' Rule)? 'endforall'?
+ChooseRule ::= 'choose' VariableTerm ('in' | '∈') EnumerableTerm (',' VariableTerm ('in' | '∈') EnumerableTerm)* (('with' | ':') Term)? 'do' Rule ('ifnone' Rule)? 'endchoose'?
+ForAllRule ::= 'forall' VariableTerm ('in' | '∈') EnumerableTerm (',' VariableTerm ('in' | '∈') EnumerableTerm)* (('with' | ':') Term)? 'do' Rule ('ifnone' Rule)? 'endforall'?
 LetRule ::= 'let' VariableTerm '=' Term (',' VariableTerm '=' Term)* 'in' Rule 'endlet'?
 
 ExtendRule ::= 'extend' ExtendableDomain 'with' VariableTerm (',' VariableTerm)* ('as' VariableTerm)? 'do' Rule 'endextend'?
@@ -48,8 +48,8 @@ ImportRule ::= 'import' VariableTerm 'do' Rule 'endimport'?
 
 IterateRule ::= 'iterate' Rule 'enditerate'?
 WhileRule ::= 'while' Term 'do' Rule 'endwhile'?
-TurboReturnRule ::= LocationTerm '<-' CallRule
-LocalRule ::= 'local' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?  (',' Id ParameterDefinition? ('->' Domain)? ('initially' InitialFunctionDefinition)?)* 'in' Rule 'endlocal'?
+TurboReturnRule ::= LocationTerm ('<-' | '←') CallRule
+LocalRule ::= 'local' Id ParameterDefinition? (('->' | '→') Domain)? ('initially' InitialFunctionDefinition)?  (',' Id ParameterDefinition? (('->' | '→') Domain)? ('initially' InitialFunctionDefinition)?)* 'in' Rule 'endlocal'?
 PrintRule ::= 'print' Term
 
 Term ::= BasicExpression | BasicExpression BinaryOperator BasicExpression | UnaryOperator BasicExpression
@@ -61,17 +61,17 @@ EnumTerm ::= Id
 EnumerableTerm ::= Term | Domain
 VariableTerm ::= IdFunction
 LocationTerm ::= FunctionTerm | 'result'
-BinaryOperator ::= '<' | '>' | '<=' | '>=' | '!=' | '=' | 'memberof' | '-' | '+' | '*' | 'div' | '/' | 'mod' | '^' | 'and' | 'or' | 'xor' | 'implies' | 'iff' 
+BinaryOperator ::= '<' | '>' | '<=' | '≤' | '>=' | '≥' | '!=' | '≠' | '=' | 'memberof' | '∈' | '-' | '+' | '*' | 'div' | '/' | 'mod' | '^' | 'and' | '∧' | 'or' | '∨' | 'xor' | '⊻' | 'implies' | '→' | 'iff' | '↔'
 
 UnaryOperator ::= '+' | '-' | 'not'
 Literal ::= NumberLiteral | BooleanLiteral | KernelLiteral | StringLiteral | CharLiteral | EnumTerm
 BooleanLiteral ::= 'true' | 'false'
 KernelLiteral ::= 'undef' | 'self'
 
-ForAllTerm ::= 'forall' VariableTerm 'in' Term (',' VariableTerm 'in' Term)* 'with' Term 
-ExistsTerm ::= 'exists' 'unique'? VariableTerm 'in' Term (',' VariableTerm 'in' Term)* 'with' Term
+ForAllTerm ::= ('forall' | '∀') VariableTerm ('in' | '∈') Term (',' VariableTerm ('in' | '∈') Term)* 'with' Term 
+ExistsTerm ::= (('exists' 'unique'?) | '∃' | '∃!') VariableTerm ('in' | '∈') Term (',' VariableTerm ('in' | '∈') Term)* 'with' Term
 SizeOfEnumerableTerm ::= '|' EnumerableTerm '|'
-PickTerm ::= 'pick' VariableTerm 'in' EnumerableTerm ('with' Term)?
+PickTerm ::= 'pick' VariableTerm ('in' | '∈') EnumerableTerm ('with' Term)?
 
 ConditionalTerm ::= Term '?' Term ':' Term | 'if' Term 'then' Term 'else' Term
 CaseTerm ::= 'case' Term 'of' ( Term ':' Term )+ ( 'otherwise' Term )? 'endcase'
@@ -79,17 +79,17 @@ RuleAsTerm ::= '@' IdRule
 ReturnTerm ::= 'return' VariableTerm 'in' Rule
 
 ComprehensionTerm ::= SetComprehensionTerm | ListComprehensionTerm | MapComprehensionTerm | BagComprehensionTerm | NumberRangeTerm
-SetComprehensionTerm ::= '{' Term '|' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? '}' 
-ListComprehensionTerm ::= '[' Term '|' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? ']'
-BagComprehensionTerm ::= '<' Term '|' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? '>'
-MapComprehensionTerm ::= '{' Term '->' Term '|' VariableTerm 'in' EnumerableTerm (',' VariableTerm 'in' EnumerableTerm)* ('with' Term)? '}'
+SetComprehensionTerm ::= '{' Term '|' VariableTerm ('in' | '∈') EnumerableTerm (',' VariableTerm ('in' | '∈') EnumerableTerm)* (('with' | ':') Term)? '}' 
+ListComprehensionTerm ::= '[' Term '|' VariableTerm ('in' | '∈') EnumerableTerm (',' VariableTerm ('in' | '∈') EnumerableTerm)* (('with' | ':') Term)? ']'
+BagComprehensionTerm ::= '<' Term '|' VariableTerm ('in' | '∈') EnumerableTerm (',' VariableTerm ('in' | '∈') EnumerableTerm)* (('with' | ':') Term)? '>'
+MapComprehensionTerm ::= '{' Term ('->' | '→') Term '|' VariableTerm ('in' | '∈') EnumerableTerm (',' VariableTerm ('in' | '∈') EnumerableTerm)* (('with' | ':') Term)? '}'
 NumberRangeTerm ::= '[' Term '..' Term ('step' Term)? ']' 
 
 StructureTerm ::= SetTerm | ListTerm | BagTerm | MapTerm
 SetTerm ::=  '{' Term (',' Term)* '}' | '{''}'
 ListTerm ::= '[' Term (',' Term)* ']' | '['']'
 BagTerm ::=  '<' Term (',' Term)* '>' | '<''>'
-MapTerm ::=  '{' (Term '->' Term) (',' Term '->' Term)* '}' | '{' '->' '}'  
+MapTerm ::=  '{' (Term ('->' | '→') Term) (',' Term ('->' | '→') Term)* '}' | '{' ('->' | '→') '}'  
 
 IdDomain ::= Id
 IdFunction ::= Id
