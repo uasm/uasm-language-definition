@@ -68,7 +68,7 @@ Literal ::= NumberLiteral | BooleanLiteral | KernelLiteral | StringLiteral | Cha
 BooleanLiteral ::= 'true' | 'false'
 KernelLiteral ::= 'undef' | 'self'
 
-ForAllTerm ::= ('forall' | '∀') VariableTerm ('in' | '∈') Term (',' VariableTerm ('in' | '∈') Term)* 'with' Term 
+ForAllTerm ::= ('forall' | '∀') VariableTerm ('in' | '∈') Term (',' VariableTerm ('in' | '∈') Term)* 'holds' Term 
 ExistsTerm ::= (('exists' 'unique'?) | '∃' | '∃!') VariableTerm ('in' | '∈') Term (',' VariableTerm ('in' | '∈') Term)* 'with' Term
 SizeOfEnumerableTerm ::= '|' EnumerableTerm '|'
 PickTerm ::= 'pick' VariableTerm ('in' | '∈') EnumerableTerm ('with' Term)?
