@@ -54,7 +54,7 @@ PrintRule ::= 'print' Term
 
 Term ::= BasicExpression | BasicExpression BinaryOperator BasicExpression | UnaryOperator BasicExpression
 BasicExpression ::= BasicTerm | '(' Term ')'
-BasicTerm ::= LocationTerm | ComprehensionTerm | StructureTerm | PickTerm | ConditionalTerm | CaseTerm | RuleAsTerm | ReturnTerm | ForAllTerm | ExistsTerm | Literal | SizeOfEnumerableTerm
+BasicTerm ::= LocationTerm | ComprehensionTerm | StructureTerm | PickTerm | ConditionalTerm | CaseTerm | RuleAsTerm | ReturnTerm | ForAllTerm | ExistsTerm | LetTerm | Literal | SizeOfEnumerableTerm
 
 FunctionTerm ::= IdFunction ('(' Term (',' Term)* ')')?
 EnumTerm ::= Id
@@ -69,6 +69,7 @@ BooleanLiteral ::= 'true' | 'false'
 KernelLiteral ::= 'undef' | 'self'
 
 ForAllTerm ::= ('forall' | '∀') VariableTerm ('in' | '∈') Term (',' VariableTerm ('in' | '∈') Term)* 'holds' Term 
+LetTerm::= 'let' VariableTerm '=' Term (',' VariableTerm '=' Term)* 'in' Term;
 ExistsTerm ::= (('exists' 'unique'?) | '∃' | '∃!') VariableTerm ('in' | '∈') Term (',' VariableTerm ('in' | '∈') Term)* 'with' Term
 SizeOfEnumerableTerm ::= '|' EnumerableTerm '|'
 PickTerm ::= 'pick' VariableTerm ('in' | '∈') EnumerableTerm ('with' Term)?
