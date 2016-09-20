@@ -1,6 +1,6 @@
 {
   "name": "Uasm-language-definition",
   "tagline": "",
-  "body": "### goal description\r\n\r\n### monthly meeting \r\n#### protocols\r\n#### open issues\r\n\r\n### documents\r\n\r\n### current state\r\n#### decisions\r\n\r\n### next steps\r\n#### fix grammar\r\n#### review documentation\r\n#### create parser for UASM (JParsec)\r\n#### define translation of AST to ASMeta-Model\r\n\r\n\r\n### contact\r\nUNIBG\r\nUULM\r\nUMIL",
+  "body": "### goal description\r\n\r\n### monthly meeting \r\n#### protocols\r\n#### open issues\r\n\r\n### documents\r\n\r\n### current state\r\n#### decisions\r\n\r\n### next steps\r\n#### fix grammar\r\n#### review documentation\r\n#### create parser for UASM (JParsec)\r\n#### define translation of AST to ASMeta-Model\r\n\r\n### publications\r\n\r\n\r\n### links\r\n#### ASMeta\r\n#### CoreASM\r\n#### KIV\r\n#### AsmL\r\n\r\n### contact\r\nUNIBG\r\nUULM\r\nUMIL",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
